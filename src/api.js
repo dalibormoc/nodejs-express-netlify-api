@@ -5,6 +5,7 @@ import response from "./data";
 const app = express();
 const router = express.Router();
 
+//serve the page from dist folder
 app.use(express.static("dist"));
 
 // router.get("/", (req, res) => {
