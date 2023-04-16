@@ -1,15 +1,17 @@
-import express from "express"
+import express from "express";
 import serverless from "serverless-http";
 import response from "./data";
 
 const app = express();
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({
-    name: "Netlify API",
-  });
-});
+app.use(express.static("dist"));
+
+// router.get("/", (req, res) => {
+//   res.json({
+//     name: "Netlify API",
+//   });
+// });
 
 // Data route
 router.get("/:entity", (req, res) => {
@@ -28,9 +30,7 @@ router.get("/:entity", (req, res) => {
 
   // Determine if the property includes the filter string
   const itemContainsFilter = (str) =>
-    (str || "")
-      .toLowerCase()
-      .includes(query) || false;
+    (str || "").toLowerCase().includes(query) || false;
 
   let filteredData;
 
@@ -58,6 +58,6 @@ router.get("/:entity", (req, res) => {
 
 app.use(`/.netlify/functions/api`, router);
 
-const handler = serverless(app)
+const handler = serverless(app);
 
-export { app, handler }
+export { app, handler };
